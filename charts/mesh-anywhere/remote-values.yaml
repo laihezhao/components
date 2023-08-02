@@ -1,0 +1,15 @@
+global:
+  host: false
+  clusterReaderNameOverride: ""
+  registry: &registry
+    docker.io
+
+registry-adaptor:
+  image:
+    registry: *registry
+    repository: hyperledgerk8s/registry-adaptor-controller
+    tag: v5.6.0
+  kubeRbacProxyImage:
+    registry: *registry
+    repository: hyperledgerk8s/kubebuilder-kube-rbac-proxy
+    tag: v0.8.0

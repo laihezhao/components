@@ -1,0 +1,205 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "registry-adaptor.fullname" . }}-manager-{{ include "global.clusterReaderName" . }}
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - replicasets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - dubbo2routes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - dubbo2routes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - dubbo2routes/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - meshservices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - meshservices/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - meshservices/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - registries
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - registries/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - registries/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - registryservices
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - registryservices/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - mesh.t7d.io
+  resources:
+  - registryservices/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - networking.istio.io
+  resources:
+  - envoyfilters
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - networking.istio.io
+  resources:
+  - workloadentries
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - networking.istio.io
+  resources:
+  - workloadgroups
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch

@@ -1,0 +1,74 @@
+# Default values for registry-adaptor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  registry: docker.io
+  repository: hyperledgerk8s/registry-adaptor-controller
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v5.6.0"
+
+kubeRbacProxyImage:
+  registry: docker.io
+  repository: hyperledgerk8s/kubebuilder-kube-rbac-proxy
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v0.8.0"
+
+imagePullSecrets: []
+nameOverride: "registry-adaptor"
+fullnameOverride: "registry-adaptor"
+namespaceOverride: "registry-system"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations:
+  sidecar.istio.io/inject: "false"
+
+podSecurityContext:
+  fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+kubeRbacProxyResources:
+  limits:
+    cpu: 500m
+    memory: 128Mi
+  requests:
+    cpu: 5m
+    memory: 64Mi
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 128Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+psp:
+  create: true
+
+env: {}

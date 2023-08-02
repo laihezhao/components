@@ -1,0 +1,164 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: meshservices.mesh.t7d.io
+spec:
+  group: mesh.t7d.io
+  names:
+    kind: MeshService
+    listKind: MeshServiceList
+    plural: meshservices
+    shortNames:
+    - msvc
+    singular: meshservice
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.serviceName
+      name: Service
+      type: string
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: MeshService is the Schema for the meshservices API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: MeshServiceSpec defines the desired state of MeshService
+            properties:
+              serviceName:
+                type: string
+            required:
+            - serviceName
+            type: object
+          status:
+            description: MeshServiceStatus defines the observed state of MeshService
+            properties:
+              controllers:
+                items:
+                  properties:
+                    instances:
+                      items:
+                        properties:
+                          creationTimestamp:
+                            format: date-time
+                            type: string
+                          healthy:
+                            type: boolean
+                          ip:
+                            type: string
+                          name:
+                            type: string
+                        required:
+                        - healthy
+                        - ip
+                        - name
+                        type: object
+                      type: array
+                    labels:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    name:
+                      type: string
+                    replicas:
+                      type: integer
+                    type:
+                      type: string
+                  required:
+                  - labels
+                  - name
+                  - type
+                  type: object
+                type: array
+              registryServices:
+                items:
+                  properties:
+                    instances:
+                      items:
+                        properties:
+                          ip:
+                            type: string
+                          pod:
+                            type: string
+                          port:
+                            type: integer
+                          workloadEntry:
+                            type: string
+                        required:
+                        - ip
+                        - port
+                        type: object
+                      type: array
+                    name:
+                      type: string
+                    serviceName:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - name
+                  - serviceName
+                  - type
+                  type: object
+                type: array
+              vms:
+                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state of cluster Important: Run "make" to regenerate code after modifying this file'
+                items:
+                  properties:
+                    instances:
+                      items:
+                        properties:
+                          creationTimestamp:
+                            format: date-time
+                            type: string
+                          healthy:
+                            type: boolean
+                          ip:
+                            type: string
+                          name:
+                            type: string
+                        required:
+                        - healthy
+                        - ip
+                        - name
+                        type: object
+                      type: array
+                    labels:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    name:
+                      type: string
+                    replicas:
+                      type: integer
+                    type:
+                      type: string
+                  required:
+                  - labels
+                  - name
+                  - type
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

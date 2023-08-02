@@ -1,0 +1,22 @@
+apiVersion: core.kubebb.k8s.com.cn/v1alpha1
+kind: ComponentPlan
+metadata:
+  name: mesh-anywhere
+  namespace: kubebb-system
+spec:
+  approved: true
+  name: mesh-anywhere
+  version: 5.6.0
+  wait: false
+  override:
+    valuesFrom:
+      - kind: ConfigMap
+        name: mesh-anywhere-helm-values
+        valuesKey: remote.yaml
+    set:
+      - global.host=false
+      - global.clusterReaderNameOverride=managed-cluster-reader
+      - global.registry=docker.io
+  component:
+    name: kubebb.mesh-anywhere
+    namespace: kubebb-system

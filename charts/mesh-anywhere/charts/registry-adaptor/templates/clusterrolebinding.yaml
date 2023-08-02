@@ -1,0 +1,31 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "registry-adaptor.fullname" . }}-manager-rolebinding
+  labels:
+    {{- include "registry-adaptor.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "registry-adaptor.fullname" . }}-manager-role
+subjects:
+- kind: ServiceAccount
+  name: {{ include "registry-adaptor.serviceAccountName" . }}
+  namespace: {{ include "registry-adaptor.namespace" . }}
+---
+{{- if .Values.psp.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "registry-adaptor.fullname" . }}-proxy-rolebinding
+  labels:
+    {{- include "registry-adaptor.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "registry-adaptor.fullname" . }}-proxy-role
+subjects:
+- kind: ServiceAccount
+  name: {{ include "registry-adaptor.serviceAccountName" . }}
+  namespace: {{ include "registry-adaptor.namespace" . }}
+{{- end }}
